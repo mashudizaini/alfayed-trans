@@ -1,0 +1,101 @@
+{
+ "actions": [],
+ "creation": "2026-11-02 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "nama_model",
+  "kategori",
+  "kelompok_tarif",
+  "kursi",
+  "kolom_1",
+  "bisa_lepas_kunci",
+  "wajib_sim",
+  "catatan"
+ ],
+ "fields": [
+  {
+   "fieldname": "nama_model",
+   "fieldtype": "Data",
+   "label": "Nama Model",
+   "reqd": 1,
+   "unique": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "kategori",
+   "fieldtype": "Select",
+   "label": "Kategori",
+   "options": "Big Bus\nMedium Bus\nMinibus\nMPV\nCity Car\nPick Up",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "kelompok_tarif",
+   "fieldtype": "Select",
+   "label": "Kelompok Tarif",
+   "options": "\nBig Bus\nMedium Bus\nHiace\nElf\nMobil 3 Baris\nMobil 2 Baris\nGran Max\nPick Up",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "kursi",
+   "fieldtype": "Int",
+   "label": "Kursi",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "kolom_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "bisa_lepas_kunci",
+   "fieldtype": "Check",
+   "label": "Bisa Lepas Kunci",
+   "default": "1"
+  },
+  {
+   "fieldname": "wajib_sim",
+   "fieldtype": "Select",
+   "label": "SIM untuk Lepas Kunci",
+   "options": "SIM A\nSIM B1",
+   "default": "SIM A"
+  },
+  {
+   "fieldname": "catatan",
+   "fieldtype": "Small Text",
+   "label": "Catatan"
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-02 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Alfayed Rental",
+ "name": "Model Kendaraan",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1,
+   "print": 1,
+   "email": 1
+  },
+  {
+   "role": "Sales User",
+   "read": 1,
+   "report": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "autoname": "field:nama_model",
+ "naming_rule": "By fieldname",
+ "index_web_pages_for_search": 1
+}

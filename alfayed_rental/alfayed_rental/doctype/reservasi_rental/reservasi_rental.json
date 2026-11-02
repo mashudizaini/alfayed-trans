@@ -1,0 +1,308 @@
+{
+ "actions": [],
+ "creation": "2026-11-02 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "status",
+  "sumber",
+  "kolom_1",
+  "nama_pemesan",
+  "no_whatsapp",
+  "customer",
+  "sec_sewa",
+  "jenis_sewa",
+  "dengan_driver",
+  "tujuan",
+  "tanggal_mulai",
+  "tanggal_selesai",
+  "kolom_2",
+  "kelompok_tarif",
+  "model_kendaraan",
+  "kendaraan",
+  "jumlah_penumpang",
+  "lokasi_jemput",
+  "sec_biaya",
+  "tarif",
+  "harga_dasar",
+  "jumlah_satuan",
+  "perlu_tinjauan",
+  "alasan_override",
+  "kolom_3",
+  "biaya_tambahan",
+  "total_biaya_tambahan",
+  "total",
+  "uang_muka",
+  "sisa_pembayaran",
+  "sec_dokumen",
+  "jaminan",
+  "catatan",
+  "sec_tautan",
+  "sales_invoice",
+  "deposit",
+  "menunggu_sejak"
+ ],
+ "fields": [
+  {
+   "fieldname": "status",
+   "fieldtype": "Select",
+   "label": "Status",
+   "options": "Permintaan\nMenunggu Pembayaran\nDikonfirmasi\nBerjalan\nSelesai\nBatal",
+   "default": "Permintaan",
+   "reqd": 1,
+   "in_list_view": 1,
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "sumber",
+   "fieldtype": "Select",
+   "label": "Sumber",
+   "options": "Website\nWhatsApp\nTelepon\nLangsung",
+   "default": "Langsung",
+   "in_standard_filter": 1
+  },
+  {
+   "fieldname": "kolom_1",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "nama_pemesan",
+   "fieldtype": "Data",
+   "label": "Nama Pemesan",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "no_whatsapp",
+   "fieldtype": "Data",
+   "label": "No. WhatsApp"
+  },
+  {
+   "fieldname": "customer",
+   "fieldtype": "Link",
+   "label": "Customer",
+   "options": "Customer",
+   "description": "Dibuat otomatis saat Dikonfirmasi bila kosong."
+  },
+  {
+   "fieldname": "sec_sewa",
+   "fieldtype": "Section Break",
+   "label": "Sewa"
+  },
+  {
+   "fieldname": "jenis_sewa",
+   "fieldtype": "Select",
+   "label": "Jenis Sewa",
+   "options": "12 Jam\n14 Jam\n1 Hari\n24 Jam\nPer Tujuan",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "dengan_driver",
+   "fieldtype": "Check",
+   "label": "Dengan Driver"
+  },
+  {
+   "fieldname": "tujuan",
+   "fieldtype": "Data",
+   "label": "Tujuan",
+   "depends_on": "eval:doc.jenis_sewa=='Per Tujuan'",
+   "mandatory_depends_on": "eval:doc.jenis_sewa=='Per Tujuan'"
+  },
+  {
+   "fieldname": "tanggal_mulai",
+   "fieldtype": "Datetime",
+   "label": "Mulai",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "tanggal_selesai",
+   "fieldtype": "Datetime",
+   "label": "Selesai",
+   "reqd": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "kolom_2",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "kelompok_tarif",
+   "fieldtype": "Select",
+   "label": "Kelompok Tarif",
+   "options": "\nBig Bus\nMedium Bus\nHiace\nElf\nMobil 3 Baris\nMobil 2 Baris\nGran Max\nPick Up"
+  },
+  {
+   "fieldname": "model_kendaraan",
+   "fieldtype": "Link",
+   "label": "Model Kendaraan",
+   "options": "Model Kendaraan"
+  },
+  {
+   "fieldname": "kendaraan",
+   "fieldtype": "Link",
+   "label": "Kendaraan",
+   "options": "Kendaraan",
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "jumlah_penumpang",
+   "fieldtype": "Int",
+   "label": "Jumlah Penumpang"
+  },
+  {
+   "fieldname": "lokasi_jemput",
+   "fieldtype": "Data",
+   "label": "Lokasi Jemput"
+  },
+  {
+   "fieldname": "sec_biaya",
+   "fieldtype": "Section Break",
+   "label": "Biaya"
+  },
+  {
+   "fieldname": "tarif",
+   "fieldtype": "Link",
+   "label": "Tarif Rental",
+   "options": "Tarif Rental",
+   "read_only": 1
+  },
+  {
+   "fieldname": "harga_dasar",
+   "fieldtype": "Currency",
+   "label": "Harga Dasar"
+  },
+  {
+   "fieldname": "jumlah_satuan",
+   "fieldtype": "Float",
+   "label": "Jumlah Satuan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "perlu_tinjauan",
+   "fieldtype": "Check",
+   "label": "Perlu Tinjauan Admin",
+   "read_only": 1
+  },
+  {
+   "fieldname": "alasan_override",
+   "fieldtype": "Small Text",
+   "label": "Alasan Harga Manual",
+   "description": "Diisi bila harga dasar ditetapkan manual."
+  },
+  {
+   "fieldname": "kolom_3",
+   "fieldtype": "Column Break"
+  },
+  {
+   "fieldname": "biaya_tambahan",
+   "fieldtype": "Table",
+   "label": "Biaya Tambahan",
+   "options": "Biaya Tambahan Reservasi"
+  },
+  {
+   "fieldname": "total_biaya_tambahan",
+   "fieldtype": "Currency",
+   "label": "Total Biaya Tambahan",
+   "read_only": 1
+  },
+  {
+   "fieldname": "total",
+   "fieldtype": "Currency",
+   "label": "Total",
+   "read_only": 1,
+   "in_list_view": 1
+  },
+  {
+   "fieldname": "uang_muka",
+   "fieldtype": "Currency",
+   "label": "Uang Muka"
+  },
+  {
+   "fieldname": "sisa_pembayaran",
+   "fieldtype": "Currency",
+   "label": "Sisa Pembayaran",
+   "read_only": 1
+  },
+  {
+   "fieldname": "sec_dokumen",
+   "fieldtype": "Section Break",
+   "label": "Dokumen dan Catatan"
+  },
+  {
+   "fieldname": "jaminan",
+   "fieldtype": "Data",
+   "label": "Jaminan (lepas kunci)",
+   "description": "KTP, SIM, dan jaminan kendaraan beserta STNK."
+  },
+  {
+   "fieldname": "catatan",
+   "fieldtype": "Small Text",
+   "label": "Catatan"
+  },
+  {
+   "fieldname": "sec_tautan",
+   "fieldtype": "Section Break",
+   "label": "Tautan"
+  },
+  {
+   "fieldname": "sales_invoice",
+   "fieldtype": "Link",
+   "label": "Sales Invoice",
+   "options": "Sales Invoice",
+   "read_only": 1
+  },
+  {
+   "fieldname": "deposit",
+   "fieldtype": "Link",
+   "label": "Deposit",
+   "options": "Deposit Rental",
+   "read_only": 1
+  },
+  {
+   "fieldname": "menunggu_sejak",
+   "fieldtype": "Datetime",
+   "label": "Menunggu Sejak",
+   "read_only": 1,
+   "hidden": 1
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-02 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Alfayed Rental",
+ "name": "Reservasi Rental",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "delete": 1,
+   "report": 1,
+   "export": 1,
+   "share": 1,
+   "print": 1,
+   "email": 1
+  },
+  {
+   "role": "Sales User",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "report": 1,
+   "print": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "autoname": "RSV-.YYYY.-.#####",
+ "naming_rule": "Expression (old style)",
+ "index_web_pages_for_search": 1,
+ "track_changes": 1,
+ "title_field": "nama_pemesan",
+ "search_fields": "nama_pemesan,kendaraan,status"
+}

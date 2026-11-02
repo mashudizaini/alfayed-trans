@@ -1,0 +1,116 @@
+{
+ "actions": [],
+ "creation": "2026-11-02 00:00:00.000000",
+ "doctype": "DocType",
+ "engine": "InnoDB",
+ "field_order": [
+  "toleransi_menit",
+  "dp_persen",
+  "tahan_jam",
+  "submit_invoice_otomatis",
+  "sec_item",
+  "item_sewa_harian",
+  "item_sewa_jam",
+  "item_biaya_titipan",
+  "item_denda",
+  "sec_akun",
+  "akun_deposit",
+  "akun_pendapatan_denda"
+ ],
+ "fields": [
+  {
+   "fieldname": "toleransi_menit",
+   "fieldtype": "Int",
+   "label": "Toleransi Keterlambatan (menit)",
+   "default": "30"
+  },
+  {
+   "fieldname": "dp_persen",
+   "fieldtype": "Percent",
+   "label": "Uang Muka Bawaan (%)",
+   "default": "30"
+  },
+  {
+   "fieldname": "tahan_jam",
+   "fieldtype": "Int",
+   "label": "Batas Tahan Menunggu Pembayaran (jam)",
+   "default": "0",
+   "description": "0 = tidak dibatalkan otomatis."
+  },
+  {
+   "fieldname": "submit_invoice_otomatis",
+   "fieldtype": "Check",
+   "label": "Submit Sales Invoice Otomatis",
+   "default": "0"
+  },
+  {
+   "fieldname": "sec_item",
+   "fieldtype": "Section Break",
+   "label": "Item Penagihan"
+  },
+  {
+   "fieldname": "item_sewa_harian",
+   "fieldtype": "Data",
+   "label": "Item Sewa Harian",
+   "default": "SEWA-HARIAN"
+  },
+  {
+   "fieldname": "item_sewa_jam",
+   "fieldtype": "Data",
+   "label": "Item Sewa Per Jam",
+   "default": "SEWA-12JAM"
+  },
+  {
+   "fieldname": "item_biaya_titipan",
+   "fieldtype": "Data",
+   "label": "Item Biaya Titipan",
+   "default": "BIAYA-TITIPAN"
+  },
+  {
+   "fieldname": "item_denda",
+   "fieldtype": "Data",
+   "label": "Item Denda",
+   "default": "DENDA-RENTAL"
+  },
+  {
+   "fieldname": "sec_akun",
+   "fieldtype": "Section Break",
+   "label": "Akun Deposit"
+  },
+  {
+   "fieldname": "akun_deposit",
+   "fieldtype": "Link",
+   "label": "Akun Deposit Pelanggan",
+   "options": "Account",
+   "description": "Kosong: dicari dari akun bernama Deposit Pelanggan."
+  },
+  {
+   "fieldname": "akun_pendapatan_denda",
+   "fieldtype": "Link",
+   "label": "Akun Pendapatan dari Potongan Deposit",
+   "options": "Account",
+   "description": "Kosong: dicari dari akun bernama Pendapatan Sewa Kendaraan."
+  }
+ ],
+ "links": [],
+ "modified": "2026-11-02 00:00:00.000000",
+ "modified_by": "Administrator",
+ "module": "Alfayed Rental",
+ "name": "Pengaturan Rental",
+ "owner": "Administrator",
+ "permissions": [
+  {
+   "role": "System Manager",
+   "read": 1,
+   "write": 1,
+   "create": 1,
+   "print": 1,
+   "email": 1,
+   "share": 1
+  }
+ ],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "states": [],
+ "issingle": 1
+}
