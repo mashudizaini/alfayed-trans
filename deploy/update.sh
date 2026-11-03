@@ -1,11 +1,11 @@
 #!/usr/bin/env bash
 # Perbarui app alfayed_rental di server: backup, build image, jalankan ulang, migrate.
 # Jalankan di server dari folder compose:  bash /path/ke/update.sh
-# Variabel yang bisa diubah: COMPOSE_DIR, SITE, IMAGE, APP_BRANCH.
+# Variabel yang bisa diubah: COMPOSE_DIR, SITE (bawaan: all), IMAGE, APP_BRANCH.
 set -euo pipefail
 
 COMPOSE_DIR="${COMPOSE_DIR:-$HOME/alfayed-erp}"
-SITE="${SITE:-erp.alfayedtrans.com}"
+SITE="${SITE:-all}"  # "all" = semua situs di bench
 IMAGE="${IMAGE:-alfayed-erp:16}"
 APP_BRANCH="${APP_BRANCH:-main}"
 BACKEND="alfayed-erp-backend-1"
@@ -17,7 +17,7 @@ COMPOSE=(docker compose
 
 cd "$COMPOSE_DIR"
 
-echo "== 1. Backup site =="
+echo "== 1. Backup situs ($SITE) =="
 docker exec "$BACKEND" bench --site "$SITE" backup --with-files
 
 echo "== 2. Simpan image lama untuk rollback =="

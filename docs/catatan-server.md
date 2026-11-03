@@ -13,7 +13,7 @@ atau nama pengguna**: repositori ini publik. Simpan detail akses di catatan loka
 | Akses | Hanya lewat Tailscale; ERPNext di port 8080 yang di-bind ke alamat Tailscale server |
 | Folder compose | `~/alfayed-erp` (`compose.yaml` + `overrides/compose.mariadb.yaml`, `compose.redis.yaml`, `compose.tailscale.yaml`) |
 | Project compose | `alfayed-erp` (container `alfayed-erp-*-1`) |
-| Site | `erp.alfayedtrans.com` |
+| Situs | `erp.alfayedtrans.com` (data uji, rancangan lama; akan dihapus), `rental.aimz.my.id`, `pos.aimz.my.id` (rancangan 3 situs, lihat Panduan Domain dan Cloudflare) |
 | Versi | Frappe 16.54.0, ERPNext 16.53.0, alfayed_rental 0.0.1 |
 | Image | `alfayed-erp:16`, dibangun dari `deploy/Containerfile` (dasar `frappe/erpnext:v16.53.0`) |
 | Database / Redis | MariaDB 11.8, Redis 8.6 (alpine) |
@@ -26,7 +26,7 @@ Setelah perubahan di-push ke `main`, jalankan di server:
 curl -fsSL https://raw.githubusercontent.com/mashudizaini/alfayed-trans/main/deploy/update.sh | bash
 ```
 
-Skrip `deploy/update.sh` melakukan: backup site, menyimpan image lama sebagai `alfayed-erp:16-sebelum`,
+Skrip `deploy/update.sh` melakukan (untuk semua situs; batasi dengan `SITE=nama.situs`): backup, menyimpan image lama sebagai `alfayed-erp:16-sebelum`,
 build image baru, `docker compose up -d`, `bench migrate`, lalu menampilkan versi terpasang.
 
 Rollback bila ada masalah:
@@ -55,6 +55,13 @@ pulihkan juga dari backup (`bench --site erp.alfayedtrans.com restore ...`).
   container dijalankan ulang, `migrate` sukses. Terverifikasi: `alfayed_rental 0.0.1 main (644e3f5)`.
 - Deploy key read-only dibuat di server (`~/.ssh/alfayed_deploy`) tetapi belum dipasang di GitHub,
   karena repositori sekarang publik.
+
+### 2026-11-03 (lanjutan)
+
+- Keputusan: ikuti rancangan tiga situs. Dibuat situs `rental.aimz.my.id` (erpnext + alfayed_rental)
+  dan `pos.aimz.my.id` (erpnext). `hotel.aimz.my.id` menunggu nama Company.
+- `erp.alfayedtrans.com` hanya berisi data uji; dihapus setelah dua situs baru terverifikasi.
+- `deploy/update.sh` kini mem-backup dan me-migrate semua situs (`--site all`).
 
 ## Pekerjaan terbuka
 
