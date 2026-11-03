@@ -1,0 +1,63 @@
+# Catatan Server Alfayed ERP
+
+Log perubahan konfigurasi server development/on-premise. **Tanpa kata sandi, token, alamat IP,
+atau nama pengguna**: repositori ini publik. Simpan detail akses di catatan lokal.
+
+## Ringkasan lingkungan (per 2026-11-03)
+
+| Komponen | Nilai |
+| --- | --- |
+| OS | Ubuntu 24.04.4 LTS, x86_64 |
+| Sumber daya | 4 CPU, RAM 5,8 GiB (+ swap 4 GiB), disk root 58 GB |
+| Docker / Compose | Docker 29.9.2, Compose v5.6.1 |
+| Akses | Hanya lewat Tailscale; ERPNext di port 8080 yang di-bind ke alamat Tailscale server |
+| Folder compose | `~/alfayed-erp` (`compose.yaml` + `overrides/compose.mariadb.yaml`, `compose.redis.yaml`, `compose.tailscale.yaml`) |
+| Project compose | `alfayed-erp` (container `alfayed-erp-*-1`) |
+| Site | `erp.alfayedtrans.com` |
+| Versi | Frappe 16.54.0, ERPNext 16.53.0, alfayed_rental 0.0.1 |
+| Image | `alfayed-erp:16`, dibangun dari `deploy/Containerfile` (dasar `frappe/erpnext:v16.53.0`) |
+| Database / Redis | MariaDB 11.8, Redis 8.6 (alpine) |
+
+## Cara memperbarui app
+
+Setelah perubahan di-push ke `main`, jalankan di server:
+
+```bash
+curl -fsSL https://raw.githubusercontent.com/mashudizaini/alfayed-trans/main/deploy/update.sh | bash
+```
+
+Skrip `deploy/update.sh` melakukan: backup site, menyimpan image lama sebagai `alfayed-erp:16-sebelum`,
+build image baru, `docker compose up -d`, `bench migrate`, lalu menampilkan versi terpasang.
+
+Rollback bila ada masalah:
+
+```bash
+docker tag alfayed-erp:16-sebelum alfayed-erp:16
+cd ~/alfayed-erp && docker compose -f compose.yaml -f overrides/compose.mariadb.yaml \
+  -f overrides/compose.redis.yaml -f overrides/compose.tailscale.yaml up -d
+```
+
+Catatan: rollback image tidak membatalkan migrasi database. Bila migrasi mengubah skema,
+pulihkan juga dari backup (`bench --site erp.alfayedtrans.com restore ...`).
+
+## Log perubahan
+
+### 2026-11-03
+
+- Kondisi awal: ERPNext v16 sudah berjalan dengan image `alfayed-erp:16` (dibangun di luar server),
+  `alfayed_rental` sudah terpasang di site dari commit `66516b4`.
+- Backup site lengkap (`backup --with-files`) sebelum perubahan; file masih di volume `sites`
+  (`erp.alfayedtrans.com/private/backups/`), **belum disalin ke luar server**.
+- Branch `perbaikan-integrasi-erpnext` digabung ke `main` (commit `644e3f5`): `required_apps`,
+  customer tidak ganda, invoice dibatalkan saat reservasi Batal.
+- Image lama disimpan sebagai `alfayed-erp:16-sebelum`.
+- Image baru dibangun di server dari `~/alfayed-erp/build/Containerfile` (isi sama dengan `deploy/Containerfile`),
+  container dijalankan ulang, `migrate` sukses. Terverifikasi: `alfayed_rental 0.0.1 main (644e3f5)`.
+- Deploy key read-only dibuat di server (`~/.ssh/alfayed_deploy`) tetapi belum dipasang di GitHub,
+  karena repositori sekarang publik.
+
+## Pekerjaan terbuka
+
+- Salin backup ke luar server dan jadwalkan backup otomatis; uji restore sekali.
+- Ganti kata sandi SSH server, pasang kunci SSH, matikan `PasswordAuthentication`.
+- Uji app end to end (seed, alur reservasi, deposit, denda, API) dan tes otomatis.
