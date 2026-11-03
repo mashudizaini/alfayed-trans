@@ -97,3 +97,5 @@ class ReservasiRental(Document):
         elif self.status == "Selesai":
             frappe.db.set_value("Kendaraan", self.kendaraan, "status", "Tersedia")
             akuntansi.buat_invoice_denda(self)
+        elif self.status == "Batal" and self.sales_invoice:
+            akuntansi.batalkan_invoice(self)

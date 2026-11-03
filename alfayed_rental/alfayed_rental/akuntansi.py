@@ -34,7 +34,14 @@ def pastikan_item(kode, nama):
 
 
 def pastikan_customer(nama):
-    """Buat Customer perorangan dari nama pemesan; grup dan wilayah dipilih dari yang bukan grup induk."""
+    """Customer perorangan untuk nama pemesan.
+
+    Customer yang sudah ada dengan nama sama dipakai ulang agar tidak terjadi duplikat.
+    Bila belum ada, dibuat baru; grup dan wilayah dipilih dari yang bukan grup induk.
+    """
+    ada = frappe.db.get_value("Customer", {"customer_name": nama, "disabled": 0}, "name")
+    if ada:
+        return ada
     grup = frappe.get_all("Customer Group", filters={"is_group": 0}, pluck="name")
     wilayah = frappe.get_all("Territory", filters={"is_group": 0}, pluck="name")
     if not grup or not wilayah:
@@ -139,3 +146,24 @@ def jurnal_selesai(dep):
         akun_denda = _akun("akun_pendapatan_denda", "Pendapatan Sewa Kendaraan", company)
         baris.append({"account": akun_denda, "credit_in_account_currency": potongan, "cost_center": cc})
     return _jurnal(company, nowdate(), baris, f"Deposit {dep.name} diselesaikan ({dep.status}), reservasi {dep.reservasi}")
+
+
+
+def batalkan_invoice(rsv):
+    """Batalkan Sales Invoice reservasi: draft dihapus (tautannya dikosongkan dulu), yang sudah submit di-cancel.
+
+    Bila ERPNext menolak (misalnya masih ada pembayaran tertaut), error diteruskan ke pengguna
+    sehingga perubahan status reservasi ikut dibatalkan.
+    """
+    nama = rsv.sales_invoice
+    if not nama or not frappe.db.exists("Sales Invoice", nama):
+        return
+    si = frappe.get_doc("Sales Invoice", nama)
+    if si.docstatus == 0:
+        rsv.db_set("sales_invoice", None)
+        frappe.delete_doc("Sales Invoice", nama, ignore_permissions=True)
+        frappe.msgprint(_("Draft Sales Invoice {0} dihapus.").format(nama))
+    elif si.docstatus == 1:
+        si.flags.ignore_permissions = True
+        si.cancel()
+        frappe.msgprint(_("Sales Invoice {0} dibatalkan (cancel).").format(nama))
