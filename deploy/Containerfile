@@ -1,16 +1,19 @@
-# Image produksi Alfayed: ERPNext resmi + app alfayed_rental dan alfayed_pos dari GitHub.
+# Image produksi Alfayed: ERPNext resmi + app alfayed_rental, alfayed_pos, dan alfayed_hotel dari GitHub.
 # Versi ERPNext dikunci lewat tag image dasar; ganti tag ini hanya saat sengaja upgrade.
-# alfayed_rental dipasang di situs rental, alfayed_pos di situs pos (install-app per situs).
+# alfayed_rental di situs rental, alfayed_pos di situs pos, alfayed_hotel di situs hotel (install-app per situs).
 FROM frappe/erpnext:v16.53.0
 
 ARG APP_REPO=https://github.com/mashudizaini/alfayed-trans
 ARG APP_BRANCH=main
 ARG POS_REPO=https://github.com/mashudizaini/alfayed_pos
 ARG POS_BRANCH=main
+ARG HOTEL_REPO=https://github.com/mashudizaini/alfayed_hotel
+ARG HOTEL_BRANCH=main
 # Ubah nilainya (misalnya --build-arg CACHEBUST=$(date +%s)) agar kode terbaru selalu diambil, bukan dari cache.
 ARG CACHEBUST=1
 
 WORKDIR /home/frappe/frappe-bench
 RUN echo "cachebust=${CACHEBUST}" \
     && bench get-app --branch ${APP_BRANCH} alfayed_rental ${APP_REPO} \
-    && bench get-app --branch ${POS_BRANCH} alfayed_pos ${POS_REPO}
+    && bench get-app --branch ${POS_BRANCH} alfayed_pos ${POS_REPO} \
+    && bench get-app --branch ${HOTEL_BRANCH} alfayed_hotel ${HOTEL_REPO}

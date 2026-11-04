@@ -83,6 +83,10 @@ pulihkan juga dari backup (`bench --site erp.alfayedtrans.com restore ...`).
   laporan Penjualan Harian per Toko, Stok per Toko, Barang Terlaris. Hak tambahan untuk doctype ERPNext
   disimpan sebagai Custom DocPerm (tidak mengubah core); setelah upgrade ERPNext, periksa ulang izinnya.
 
+- App ketiga `alfayed_hotel` (repo `mashudizaini/alfayed_hotel`) untuk situs `hotel.aimz.my.id`
+  (Company Alfayed Hotel): hotel, penginapan, homestay, villa (per malam) serta kost dan kontrakan
+  (Kontrak Sewa dengan tagihan otomatis harian). Hostname `hotel` ditambahkan ke tunnel.
+
 ## Pekerjaan terbuka
 
 - Salin backup ke luar server dan jadwalkan backup otomatis; uji restore sekali.
