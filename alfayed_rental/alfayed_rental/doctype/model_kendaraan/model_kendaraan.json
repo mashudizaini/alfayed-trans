@@ -68,7 +68,7 @@
   }
  ],
  "links": [],
- "modified": "2026-11-02 00:00:00.000000",
+ "modified": "2026-11-04 10:00:00.000000",
  "modified_by": "Administrator",
  "module": "Alfayed Rental",
  "name": "Model Kendaraan",
@@ -88,6 +88,16 @@
   },
   {
    "role": "Sales User",
+   "read": 1,
+   "report": 1
+  },
+  {
+   "role": "Staf Rental",
+   "read": 1,
+   "report": 1
+  },
+  {
+   "role": "Accounts User",
    "read": 1,
    "report": 1
   }

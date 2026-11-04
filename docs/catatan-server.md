@@ -63,8 +63,19 @@ pulihkan juga dari backup (`bench --site erp.alfayedtrans.com restore ...`).
 - `erp.alfayedtrans.com` hanya berisi data uji; dihapus setelah dua situs baru terverifikasi.
 - `deploy/update.sh` kini mem-backup dan me-migrate semua situs (`--site all`).
 
+### 2026-11-04
+
+- App: peran `Staf Rental`, profil modul `Staf Rental` dan `Keuangan` (dibuat otomatis saat migrate),
+  workspace/sidebar/dock **Rental** (`/desk/rental`), 4 number card, Kalender Reservasi, Script Report
+  **Laporan Reservasi**. Hak akses: staf rental mengelola reservasi dan denda; keuangan (Accounts User)
+  mencatat pembayaran dan deposit, hanya membaca data rental.
+- User operasional situs rental dibuat dengan:
+  `bench --site rental.aimz.my.id execute alfayed_rental.alfayed_rental.pengguna.buat_user_operasional --kwargs "{...}"`
+  lalu kata sandi diatur dengan `bench --site rental.aimz.my.id set-password <email>`.
+
 ## Pekerjaan terbuka
 
 - Salin backup ke luar server dan jadwalkan backup otomatis; uji restore sekali.
 - Ganti kata sandi SSH server, pasang kunci SSH, matikan `PasswordAuthentication`.
 - Uji app end to end (seed, alur reservasi, deposit, denda, API) dan tes otomatis.
+- Laporan lanjutan: Pendapatan Rental per bulan dan Utilisasi Kendaraan.

@@ -10,16 +10,20 @@ app_license = "mit"
 
 required_apps = ["erpnext"]
 
-# Each item in the list will be shown as an app in the apps page
-# add_to_apps_screen = [
-# 	{
-# 		"name": "alfayed_rental",
-# 		"logo": "/assets/alfayed_rental/logo.png",
-# 		"title": "Alfayed Rental",
-# 		"route": "/alfayed_rental",
-# 		"has_permission": "alfayed_rental.api.permission.has_app_permission",
-# 	}
-# ]
+# Tampil sebagai app "Rental" di layar Apps; membuka workspace Rental.
+add_to_apps_screen = [
+	{
+		"name": "alfayed_rental",
+		"title": "Rental",
+		"route": "/desk/rental",
+		"has_permission": "alfayed_rental.alfayed_rental.pengguna.akses_app",
+		"sequence_id": 2,
+	}
+]
+
+# Peran Staf Rental dan profil modul dibuat/diperbarui otomatis.
+after_install = "alfayed_rental.alfayed_rental.pengguna.setelah_migrate"
+after_migrate = ["alfayed_rental.alfayed_rental.pengguna.setelah_migrate"]
 
 # The dock, the rail down the left of the desk, is a document rather than a hook. Author it in
 # Manage Dock on a developer-mode site and press Export to App, and it is written to
