@@ -15,7 +15,7 @@ atau nama pengguna**: repositori ini publik. Simpan detail akses di catatan loka
 | Project compose | `alfayed-erp` (container `alfayed-erp-*-1`) |
 | Situs | `erp.alfayedtrans.com` (data uji, rancangan lama; akan dihapus), `rental.aimz.my.id`, `pos.aimz.my.id` (rancangan 3 situs, lihat Panduan Domain dan Cloudflare) |
 | Versi | Frappe 16.54.0, ERPNext 16.53.0, alfayed_rental 0.0.1 |
-| Image | `alfayed-erp:16`, dibangun dari `deploy/Containerfile` (dasar `frappe/erpnext:v16.53.0`) |
+| Image | `alfayed-erp:16`, dibangun dari `deploy/Containerfile` (dasar `frappe/erpnext:v16.53.0`; memuat `alfayed_rental` dan `alfayed_pos`) |
 | Database / Redis | MariaDB 11.8, Redis 8.6 (alpine) |
 
 ## Cara memperbarui app
@@ -77,6 +77,11 @@ pulihkan juga dari backup (`bench --site erp.alfayedtrans.com restore ...`).
 - Akses publik lewat Cloudflare Tunnel: `deploy/compose.cloudflared.yaml` disalin ke `overrides/`,
   `TUNNEL_TOKEN` di `.env` (tidak di Git); `update.sh` ikut memuatnya bila file ada.
   Hostname: `rental.aimz.my.id`, `pos.aimz.my.id` -> `http://frontend:8080`.
+
+- App kedua `alfayed_pos` (repo `mashudizaini/alfayed_pos`) ikut dibangun ke image dan dipasang hanya
+  di situs pos: peran Kasir dan Kepala Toko, beranda Toko (`/desk/toko`), QRIS, POS Profile Toko A/B/C,
+  laporan Penjualan Harian per Toko, Stok per Toko, Barang Terlaris. Hak tambahan untuk doctype ERPNext
+  disimpan sebagai Custom DocPerm (tidak mengubah core); setelah upgrade ERPNext, periksa ulang izinnya.
 
 ## Pekerjaan terbuka
 
