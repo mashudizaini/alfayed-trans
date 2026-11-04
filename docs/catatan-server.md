@@ -73,9 +73,13 @@ pulihkan juga dari backup (`bench --site erp.alfayedtrans.com restore ...`).
   `bench --site rental.aimz.my.id execute alfayed_rental.alfayed_rental.pengguna.buat_user_operasional --kwargs "{...}"`
   lalu kata sandi diatur dengan `bench --site rental.aimz.my.id set-password <email>`.
 
+- Laporan Pendapatan Rental (per bulan, per kelompok/model/kendaraan) dan Utilisasi Kendaraan.
+- Akses publik lewat Cloudflare Tunnel: `deploy/compose.cloudflared.yaml` disalin ke `overrides/`,
+  `TUNNEL_TOKEN` di `.env` (tidak di Git); `update.sh` ikut memuatnya bila file ada.
+  Hostname: `rental.aimz.my.id`, `pos.aimz.my.id` -> `http://frontend:8080`.
+
 ## Pekerjaan terbuka
 
 - Salin backup ke luar server dan jadwalkan backup otomatis; uji restore sekali.
 - Ganti kata sandi SSH server, pasang kunci SSH, matikan `PasswordAuthentication`.
 - Uji app end to end (seed, alur reservasi, deposit, denda, API) dan tes otomatis.
-- Laporan lanjutan: Pendapatan Rental per bulan dan Utilisasi Kendaraan.

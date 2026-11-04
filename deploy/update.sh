@@ -9,13 +9,17 @@ SITE="${SITE:-all}"  # "all" = semua situs di bench
 IMAGE="${IMAGE:-alfayed-erp:16}"
 APP_BRANCH="${APP_BRANCH:-main}"
 BACKEND="alfayed-erp-backend-1"
+cd "$COMPOSE_DIR"
+
 COMPOSE=(docker compose
   -f compose.yaml
   -f overrides/compose.mariadb.yaml
   -f overrides/compose.redis.yaml
   -f overrides/compose.tailscale.yaml)
-
-cd "$COMPOSE_DIR"
+# Tunnel Cloudflare ikut bila sudah dipasang.
+if [ -f overrides/compose.cloudflared.yaml ]; then
+  COMPOSE+=(-f overrides/compose.cloudflared.yaml)
+fi
 
 echo "== 1. Backup situs ($SITE) =="
 docker exec "$BACKEND" bench --site "$SITE" backup --with-files

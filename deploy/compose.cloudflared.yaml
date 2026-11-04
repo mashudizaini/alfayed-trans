@@ -1,0 +1,11 @@
+# Cloudflare Tunnel untuk akses publik (rental.aimz.my.id, pos.aimz.my.id).
+# Salin ke ~/alfayed-erp/overrides/ di server. TUNNEL_TOKEN diisi di ~/alfayed-erp/.env, bukan di Git.
+services:
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    restart: unless-stopped
+    command: tunnel --no-autoupdate run
+    environment:
+      TUNNEL_TOKEN: ${TUNNEL_TOKEN:?Isi TUNNEL_TOKEN di .env}
+    depends_on:
+      - frontend

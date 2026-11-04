@@ -1,7 +1,7 @@
 {
  "app": "alfayed_rental",
  "charts": [],
- "content": "[{\"id\": \"h1\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Status Rental</b></span>\", \"col\": 12}}, {\"id\": \"nc0\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Permintaan Baru\", \"col\": 3}}, {\"id\": \"nc1\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Menunggu Pembayaran\", \"col\": 3}}, {\"id\": \"nc2\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Sedang Berjalan\", \"col\": 3}}, {\"id\": \"nc3\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Unit Tersedia\", \"col\": 3}}, {\"id\": \"h2\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Akses Cepat</b></span>\", \"col\": 12}}, {\"id\": \"sc1\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Reservasi Baru\", \"col\": 3}}, {\"id\": \"sc2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Kalender Reservasi\", \"col\": 3}}, {\"id\": \"sc3\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Laporan Reservasi\", \"col\": 3}}, {\"id\": \"sc4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Daftar Kendaraan\", \"col\": 3}}, {\"id\": \"ql1\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Reservasi Aktif\", \"col\": 6}}, {\"id\": \"ql2\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Permintaan Masuk\", \"col\": 6}}]",
+ "content": "[{\"id\": \"h1\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Status Rental</b></span>\", \"col\": 12}}, {\"id\": \"nc0\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Permintaan Baru\", \"col\": 3}}, {\"id\": \"nc1\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Menunggu Pembayaran\", \"col\": 3}}, {\"id\": \"nc2\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Sedang Berjalan\", \"col\": 3}}, {\"id\": \"nc3\", \"type\": \"number_card\", \"data\": {\"number_card_name\": \"Unit Tersedia\", \"col\": 3}}, {\"id\": \"h2\", \"type\": \"header\", \"data\": {\"text\": \"<span class=\\\"h4\\\"><b>Akses Cepat</b></span>\", \"col\": 12}}, {\"id\": \"sc1\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Reservasi Baru\", \"col\": 3}}, {\"id\": \"sc2\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Kalender Reservasi\", \"col\": 3}}, {\"id\": \"sc3\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Laporan Reservasi\", \"col\": 3}}, {\"id\": \"sc4\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Daftar Kendaraan\", \"col\": 3}}, {\"id\": \"sc5\", \"type\": \"shortcut\", \"data\": {\"shortcut_name\": \"Pendapatan Rental\", \"col\": 3}}, {\"id\": \"ql1\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Reservasi Aktif\", \"col\": 6}}, {\"id\": \"ql2\", \"type\": \"quick_list\", \"data\": {\"quick_list_name\": \"Permintaan Masuk\", \"col\": 6}}]",
  "creation": "2026-11-04 10:00:00.000000",
  "custom_blocks": [],
  "docstatus": 0,
@@ -13,7 +13,7 @@
  "is_hidden": 0,
  "label": "Rental",
  "links": [],
- "modified": "2026-11-04 10:00:00.000000",
+ "modified": "2026-11-04 12:00:00.000000",
  "modified_by": "Administrator",
  "module": "Alfayed Rental",
  "name": "Rental",
@@ -81,6 +81,13 @@
    "link_to": "Kendaraan",
    "doc_view": "List",
    "color": "Grey"
+  },
+  {
+   "label": "Pendapatan Rental",
+   "type": "Report",
+   "link_to": "Pendapatan Rental",
+   "report_ref_doctype": "Reservasi Rental",
+   "color": "Green"
   }
  ],
  "sidebar_items": [
@@ -124,16 +131,62 @@
    "child": 0,
    "collapsible": 1,
    "icon": "file-text",
+   "indent": 1,
+   "keep_closed": 0,
+   "label": "Laporan",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "icon": "",
    "indent": 0,
    "keep_closed": 0,
    "label": "Laporan Reservasi",
    "link_type": "Report",
+   "link_to": "Laporan Reservasi",
    "show_arrow": 0,
-   "type": "Link",
-   "link_to": "Laporan Reservasi"
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "icon": "",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Pendapatan Rental",
+   "link_type": "Report",
+   "link_to": "Pendapatan Rental",
+   "show_arrow": 0,
+   "type": "Link"
+  },
+  {
+   "child": 1,
+   "collapsible": 1,
+   "icon": "",
+   "indent": 0,
+   "keep_closed": 0,
+   "label": "Utilisasi Kendaraan",
+   "link_type": "Report",
+   "link_to": "Utilisasi Kendaraan",
+   "show_arrow": 0,
+   "type": "Link"
   },
   {
    "child": 0,
+   "collapsible": 1,
+   "icon": "wallet",
+   "indent": 1,
+   "keep_closed": 0,
+   "label": "Transaksi",
+   "link_type": "DocType",
+   "show_arrow": 0,
+   "type": "Section Break"
+  },
+  {
+   "child": 1,
    "collapsible": 1,
    "icon": "wallet",
    "indent": 0,
@@ -145,7 +198,7 @@
    "link_to": "Deposit Rental"
   },
   {
-   "child": 0,
+   "child": 1,
    "collapsible": 1,
    "icon": "receipt",
    "indent": 0,
