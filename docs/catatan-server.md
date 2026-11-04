@@ -87,8 +87,17 @@ pulihkan juga dari backup (`bench --site erp.alfayedtrans.com restore ...`).
   (Company Alfayed Hotel): hotel, penginapan, homestay, villa (per malam) serta kost dan kontrakan
   (Kontrak Sewa dengan tagihan otomatis harian). Hostname `hotel` ditambahkan ke tunnel.
 
+## Backup
+
+- `deploy/backup.sh` (disalin ke `~/alfayed-erp/backup.sh`) dijalankan cron setiap hari 01:30: backup semua situs
+  (`--with-files --compress`) ke `~/backups/<tanggal>/<situs>/`, retensi lokal 14 hari, lalu `rclone copy` ke remote
+  terenkripsi `gdrive-crypt:alfayed-erp` (Google Drive), retensi 60 hari. Log: `~/backups/backup.log`.
+- Kata sandi enkripsi rclone crypt disimpan di pengelola kata sandi pemilik; tanpa itu salinan di Drive tidak bisa dibuka.
+- Backup memuat `site_config` (berisi `encryption_key` situs) yang dibutuhkan untuk memulihkan kata sandi tersimpan.
+- Uji restore: `deploy/uji_restore.sh <situs>` memulihkan backup terbaru ke `uji-restore.local`, membandingkan jumlah
+  dokumen, lalu menghapus situs uji.
+
 ## Pekerjaan terbuka
 
-- Salin backup ke luar server dan jadwalkan backup otomatis; uji restore sekali.
 - Ganti kata sandi SSH server, pasang kunci SSH, matikan `PasswordAuthentication`.
 - Uji app end to end (seed, alur reservasi, deposit, denda, API) dan tes otomatis.
